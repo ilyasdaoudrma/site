@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nike Store — Rabat</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--black:#080808;--white:#f5f5f0;--orange:#FF4500;--mid:#141414;--gray:#666;--border:rgba(255,255,255,0.07)}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;cursor:none}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--black)}
+::-webkit-scrollbar-thumb{background:var(--orange)}
+#cur{position:fixed;width:10px;height:10px;background:var(--orange);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s}
+#ring{position:fixed;width:38px;height:38px;border:1px solid rgba(255,69,0,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.4rem 4rem;transition:background .4s;border-bottom:1px solid transparent}
+nav.scrolled{background:rgba(8,8,8,.93);backdrop-filter:blur(24px);border-bottom-color:var(--border)}
+.nlogo svg{width:50px;height:19px;fill:var(--white)}
+.nlinks{display:flex;gap:2.5rem;list-style:none}
+.nlinks a{text-decoration:none;color:rgba(245,245,240,.6);font-size:.75rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;transition:color .2s}
+.nlinks a:hover{color:var(--white)}
+.ncta{background:var(--orange);color:#fff;border:none;padding:.65rem 1.8rem;font-family:'Barlow',sans-serif;font-weight:700;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;cursor:none;transition:transform .2s,box-shadow .2s}
+.ncta:hover{transform:scale(1.04);box-shadow:0 0 28px rgba(255,69,0,.5)}
+#hero{height:100vh;position:relative;overflow:hidden;display:flex;align-items:center}
+.hbg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 80% at 65% 50%,#1f0800 0%,#080808 70%)}
+.hgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,69,0,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,69,0,.035) 1px,transparent 1px);background-size:55px 55px;animation:gmove 22s linear infinite}
+@keyframes gmove{to{transform:translate(55px,55px)}}
+.hcontent{position:relative;z-index:3;padding:0 4rem;max-width:620px}
+.heyebrow{font-size:.72rem;font-weight:700;letter-spacing:.35em;text-transform:uppercase;color:var(--orange);margin-bottom:1.2rem;opacity:0;animation:fup .8s .2s forwards}
+.htitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(5.5rem,13vw,12rem);line-height:.88;margin-bottom:1.6rem;opacity:0;animation:fup .9s .4s forwards}
+.htitle em{color:var(--orange);font-style:normal;display:block}
+.hsub{font-size:1rem;font-weight:300;color:rgba(245,245,240,.55);max-width:380px;line-height:1.8;margin-bottom:2.5rem;opacity:0;animation:fup .8s .6s forwards}
+.hbtns{display:flex;gap:1rem;opacity:0;animation:fup .8s .8s forwards}
+.bp{background:var(--orange);color:#fff;padding:.9rem 2.4rem;font-family:'Barlow',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:transform .2s,box-shadow .3s;cursor:none;display:inline-block}
+.bp:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(255,69,0,.4)}
+.bg{border:1.5px solid rgba(245,245,240,.2);color:var(--white);padding:.9rem 2.4rem;font-family:'Barlow',sans-serif;font-weight:600;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:border-color .2s,background .2s;cursor:none;display:inline-block}
+.bg:hover{border-color:var(--orange);background:rgba(255,69,0,.08)}
+.hshoe{position:absolute;right:-2vw;bottom:0;width:52vw;max-width:740px;z-index:2;opacity:0;animation:hslide 1.2s .3s cubic-bezier(.22,1,.36,1) forwards;will-change:transform}
+@keyframes hslide{from{opacity:0;transform:translateX(80px)}to{opacity:1;transform:translateX(0)}}
+@keyframes fup{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.scrollhint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.6rem;opacity:.35;animation:pulse 2.5s infinite}
+.scrollhint span{font-size:.6rem;letter-spacing:.25em;text-transform:uppercase}
+.scrollline{width:1px;height:36px;background:linear-gradient(var(--white),transparent)}
+@keyframes pulse{0%,100%{opacity:.25}50%{opacity:.55}}
+.mq{background:var(--orange);padding:.85rem 0;overflow:hidden}
+.mqtrack{display:flex;gap:3rem;animation:mqanim 16s linear infinite;white-space:nowrap}
+.mqitem{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:.1em;color:#fff;display:flex;align-items:center;gap:1rem}
+.mqdot{width:5px;height:5px;background:rgba(255,255,255,.45);border-radius:50%;flex-shrink:0}
+@keyframes mqanim{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.stag{font-size:.68rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:.8rem}
+.stitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,6vw,5rem);line-height:.95;color:var(--white)}
+section{position:relative}
+section::before{content:'';position:absolute;top:0;left:4rem;right:4rem;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+#products{padding:8rem 4rem}
+.phead{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4rem}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.pcard{background:var(--mid);position:relative;overflow:hidden;cursor:none;transition:transform .4s cubic-bezier(.22,1,.36,1)}
+.pcard:hover{transform:translateY(-6px)}
+.pcard::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.pcard:hover::after{transform:scaleX(1)}
+.pimgw{aspect-ratio:4/3;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:1.5rem;transition:background .4s}
+.pimgw svg{width:90%;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.pcard:hover .pimgw svg{transform:scale(1.07) translateY(-5px)}
+.plabel{position:absolute;top:.8rem;left:.8rem;background:var(--orange);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.28rem .65rem;z-index:2}
+.pinfo{padding:1.2rem 1.4rem 1.6rem}
+.pname{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.04em;margin-bottom:.3rem}
+.pdesc{font-size:.78rem;color:var(--gray);line-height:1.6;margin-bottom:.8rem}
+.pprice{font-size:1rem;font-weight:700;color:var(--orange)}
+#features{padding:8rem 4rem;overflow:hidden}
+.fbgtext{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Bebas Neue',sans-serif;font-size:24vw;color:rgba(255,255,255,.018);white-space:nowrap;pointer-events:none;user-select:none}
+.fhead{text-align:center;margin-bottom:5rem;position:relative;z-index:1}
+.fgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;position:relative;z-index:1}
+.fitem{padding:2rem 1.5rem;border:1px solid var(--border);transition:border-color .3s,background .3s}
+.fitem:hover{border-color:rgba(255,69,0,.35);background:rgba(255,69,0,.03)}
+.fnum{font-family:'Bebas Neue',sans-serif;font-size:4.5rem;color:rgba(255,69,0,.12);line-height:1;margin-bottom:.4rem}
+.ftitle{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.04em;margin-bottom:.7rem}
+.ftext{font-size:.8rem;color:var(--gray);line-height:1.75}
+#location{padding:8rem 4rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.mapframe{width:100%;overflow:hidden;border:1px solid var(--border);position:relative}
+.mapframe iframe{width:100%;height:400px;border:none;display:block;filter:grayscale(1) contrast(1.1) brightness(.75)}
+.maptag{position:absolute;top:1rem;right:1rem;background:var(--orange);color:#fff;padding:.4rem 1rem;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;gap:.4rem}
+.locinfo{display:flex;flex-direction:column;gap:2rem}
+.locaddr{border-left:3px solid var(--orange);padding-left:1.5rem}
+.locaddr h3{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:.04em;margin-bottom:.5rem}
+.locaddr p{font-size:.88rem;color:rgba(245,245,240,.5);line-height:1.9}
+.hgrid2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.hitem{font-size:.8rem;color:var(--gray)}
+.hitem strong{display:block;color:var(--white);font-size:.85rem;margin-bottom:.1rem}
+#contact{padding:8rem 4rem;text-align:center}
+.srow{display:flex;justify-content:center;gap:1.2rem;margin-top:3.5rem;flex-wrap:wrap}
+.scard{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.8rem;border:1px solid var(--border);background:var(--mid);text-decoration:none;color:var(--white);min-width:210px;transition:transform .3s,box-shadow .3s,border-color .3s;cursor:none;position:relative;overflow:hidden}
+.scard::before{content:'';position:absolute;inset:0;background:var(--orange);transform:translateX(-101%);transition:transform .38s cubic-bezier(.22,1,.36,1)}
+.scard:hover::before{transform:translateX(0)}
+.scard:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(255,69,0,.2);border-color:var(--orange)}
+.scard>*{position:relative;z-index:1}
+.sicon{width:38px;height:38px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.sicon svg{width:20px;height:20px;fill:currentColor}
+.slabel strong{display:block;font-size:.88rem;font-weight:700}
+.slabel span{font-size:.73rem;color:rgba(245,245,240,.45);transition:color .3s}
+.scard:hover .slabel span{color:rgba(255,255,255,.7)}
+footer{padding:2.5rem 4rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.flogo svg{width:46px;height:17px;fill:rgba(255,255,255,.25)}
+.fcopy{font-size:.72rem;color:var(--gray);letter-spacing:.08em}
+.flinks{display:flex;gap:2rem}
+.flinks a{font-size:.72rem;color:var(--gray);text-decoration:none;letter-spacing:.08em;transition:color .2s}
+.flinks a:hover{color:var(--white)}
+.rev{opacity:0;transform:translateY(36px);transition:opacity .85s cubic-bezier(.22,1,.36,1),transform .85s cubic-bezier(.22,1,.36,1)}
+.rev.in{opacity:1;transform:translateY(0)}
+.revL{opacity:0;transform:translateX(-45px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1)}
+.revL.in{opacity:1;transform:translateX(0)}
+.revR{opacity:0;transform:translateX(45px);transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1)}
+.revR.in{opacity:1;transform:translateX(0)}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="ring"></div>
+
+<nav id="nav">
+  <div class="nlogo"><svg viewBox="0 0 305 112"><path d="M34.74 101.68c-9.5 2.5-19.63 1.25-27.63-3.75L0 101.68l152.3-89.08c8-5 18.5-5 26.13-.62l126.57 73.2-207.45-72.95c-3.75-1.25-7.5-1.25-10.62.63-3.75 2.5-5 6.87-3.13 10.62l47.5 74.45-96.56 3.75z"/></svg></div>
+  <ul class="nlinks">
+    <li><a href="#products">Collections</a></li>
+    <li><a href="#features">À propos</a></li>
+    <li><a href="#location">Boutique</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="ncta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Nous trouver</button>
+</nav>
+
+<section id="hero">
+  <div class="hbg"></div>
+  <div class="hgrid"></div>
+  <div class="hcontent">
+    <div class="heyebrow">Nike Store — Rabat, Maroc</div>
+    <h1 class="htitle">Just<em>Do It.</em></h1>
+    <p class="hsub">La boutique officielle Nike au cœur de Rabat. Chaussures, vêtements et équipements pour les athlètes qui ne s'arrêtent jamais.</p>
+    <div class="hbtns">
+      <a href="#products" class="bp">Voir la collection</a>
+      <a href="#location" class="bg">Nous trouver</a>
+    </div>
+  </div>
+
+  <!-- Hero Shoe: Air Max drawn in pure SVG -->
+  <div class="hshoe">
+    <svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="glowGrad" cx="50%" cy="80%" r="50%">
+          <stop offset="0%" stop-color="#FF4500" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#FF4500" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="upperGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#1e1e2e"/>
+          <stop offset="100%" stop-color="#111118"/>
+        </linearGradient>
+        <linearGradient id="sideGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#252535"/>
+          <stop offset="100%" stop-color="#141420"/>
+        </linearGradient>
+      </defs>
+      <!-- Shadow glow -->
+      <ellipse cx="360" cy="385" rx="240" ry="22" fill="url(#glowGrad)"/>
+      <!-- Outsole -->
+      <path d="M95 355 Q150 372 360 372 Q560 372 610 355 Q620 344 612 336 Q575 342 360 343 Q145 343 98 336 Q86 344 95 355Z" fill="#0f0f0f"/>
+      <!-- Outsole tread lines -->
+      <line x1="140" y1="358" x2="200" y2="362" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="210" y1="360" x2="280" y2="363" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="290" y1="361" x2="360" y2="363" stroke="#1a1a1a" stroke-width="2"/>
+      <!-- Air unit -->
+      <rect x="450" y="318" width="120" height="24" rx="6" fill="#080810" stroke="rgba(255,69,0,0.25)" stroke-width="1"/>
+      <ellipse cx="475" cy="330" rx="14" ry="9" fill="none" stroke="rgba(80,140,255,0.55)" stroke-width="1.2"/>
+      <ellipse cx="505" cy="330" rx="14" ry="9" fill="none" stroke="rgba(80,140,255,0.55)" stroke-width="1.2"/>
+      <ellipse cx="535" cy="330" rx="14" ry="9" fill="none" stroke="rgba(80,140,255,0.55)" stroke-width="1.2"/>
+      <!-- Midsole white -->
+      <path d="M98 336 Q145 343 360 343 Q575 343 612 336 L606 312 Q572 320 360 321 Q148 321 104 312 Z" fill="#d8d4cc"/>
+      <!-- Midsole stripe -->
+      <path d="M104 312 Q148 321 360 321 Q572 321 606 312 L602 302 Q568 309 360 310 Q152 310 108 302 Z" fill="#c8c4bc"/>
+      <!-- Upper main body -->
+      <path d="M110 310 Q115 258 148 222 Q188 180 260 160 Q340 142 420 148 Q490 154 535 178 Q570 198 582 232 Q590 258 588 310 Z" fill="url(#upperGrad)"/>
+      <!-- Side panel -->
+      <path d="M400 150 Q470 152 530 176 Q568 196 580 228 Q588 255 586 310 L555 310 Q554 268 546 242 Q534 210 508 192 Q476 172 430 164 Z" fill="url(#sideGrad)"/>
+      <!-- Mesh texture lines on toe -->
+      <path d="M115 305 Q118 268 136 238" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="2"/>
+      <path d="M135 305 Q138 270 154 240" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="2"/>
+      <path d="M155 305 Q158 272 172 244" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="2"/>
+      <path d="M112 285 Q155 282 185 274" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="2"/>
+      <path d="M110 265 Q155 261 190 252" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="2"/>
+      <!-- Main Nike Swoosh -->
+      <path d="M138 278 C185 232 265 220 370 234 C440 244 505 268 520 254 C495 282 400 295 295 278 C235 268 168 274 138 278Z" fill="#FF4500"/>
+      <!-- Swoosh highlight -->
+      <path d="M145 272 C190 232 268 222 370 235 C430 243 488 262 508 252" fill="none" stroke="rgba(255,120,60,0.3)" stroke-width="3"/>
+      <!-- Tongue -->
+      <path d="M300 162 Q345 150 388 154 Q408 157 414 172 L404 228 Q375 216 350 215 Q325 216 298 228 Z" fill="#1a1a2a"/>
+      <!-- Tongue logo area -->
+      <rect x="322" y="178" width="56" height="28" rx="3" fill="#111118"/>
+      <!-- Swoosh on tongue -->
+      <path d="M330 196 C340 188 355 186 366 189 C360 197 343 199 330 196Z" fill="rgba(255,69,0,0.7)"/>
+      <!-- Laces -->
+      <line x1="304" y1="170" x2="408" y2="174" stroke="rgba(245,245,240,0.55)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="302" y1="184" x2="406" y2="187" stroke="rgba(245,245,240,0.55)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="300" y1="198" x2="404" y2="200" stroke="rgba(245,245,240,0.55)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="299" y1="212" x2="402" y2="213" stroke="rgba(245,245,240,0.55)" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="298" y1="225" x2="401" y2="225" stroke="rgba(245,245,240,0.35)" stroke-width="2" stroke-linecap="round"/>
+      <!-- Heel counter -->
+      <path d="M540 178 Q570 198 582 232 Q590 260 588 310 L562 310 Q562 272 556 248 Q546 216 528 196 Q516 183 504 176 Z" fill="#202030"/>
+      <!-- Heel tab -->
+      <rect x="548" y="220" width="30" height="50" rx="4" fill="#1a1a28"/>
+      <path d="M554 260 C560 248 570 246 578 249 C573 258 561 262 554 260Z" fill="rgba(255,69,0,0.65)"/>
+      <!-- Ankle collar edge -->
+      <path d="M414 155 Q460 155 500 168 Q535 180 548 200" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="3" stroke-linecap="round"/>
+      <!-- Upper highlight edge -->
+      <path d="M110 310 Q114 266 136 232 Q162 194 200 172 Q248 148 310 140" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="2"/>
+      <!-- Nike text on midsole -->
+      <text x="280" y="332" font-family="'Barlow',Arial,sans-serif" font-weight="900" font-size="12" fill="rgba(0,0,0,0.2)" letter-spacing="4">NIKE</text>
+    </svg>
+  </div>
+
+  <div class="scrollhint"><span>Scroll</span><div class="scrollline"></div></div>
+</section>
+
+<div class="mq">
+  <div class="mqtrack">
+    <span class="mqitem"><span class="mqdot"></span>Air Max</span>
+    <span class="mqitem"><span class="mqdot"></span>Jordan</span>
+    <span class="mqitem"><span class="mqdot"></span>Dri-FIT</span>
+    <span class="mqitem"><span class="mqdot"></span>Air Force 1</span>
+    <span class="mqitem"><span class="mqdot"></span>React Infinity</span>
+    <span class="mqitem"><span class="mqdot"></span>Zoom Fly</span>
+    <span class="mqitem"><span class="mqdot"></span>Running</span>
+    <span class="mqitem"><span class="mqdot"></span>Football</span>
+    <span class="mqitem"><span class="mqdot"></span>Training</span>
+    <span class="mqitem"><span class="mqdot"></span>Air Max</span>
+    <span class="mqitem"><span class="mqdot"></span>Jordan</span>
+    <span class="mqitem"><span class="mqdot"></span>Dri-FIT</span>
+    <span class="mqitem"><span class="mqdot"></span>Air Force 1</span>
+    <span class="mqitem"><span class="mqdot"></span>React Infinity</span>
+    <span class="mqitem"><span class="mqdot"></span>Zoom Fly</span>
+    <span class="mqitem"><span class="mqdot"></span>Running</span>
+    <span class="mqitem"><span class="mqdot"></span>Football</span>
+    <span class="mqitem"><span class="mqdot"></span>Training</span>
+  </div>
+</div>
+
+<section id="products">
+  <div class="phead rev">
+    <div><div class="stag">Nos Bestsellers</div><h2 class="stitle">Collection<br>Phare</h2></div>
+    <a href="#contact" class="bg" style="align-self:flex-end">Tout voir →</a>
+  </div>
+  <div class="pgrid">
+
+    <!-- Air Force 1 -->
+    <div class="pcard rev d1">
+      <span class="plabel">New</span>
+      <div class="pimgw" style="background:#0e0e0e">
+        <svg viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="170" cy="205" rx="130" ry="10" fill="rgba(255,69,0,0.15)"/>
+          <path d="M52 182 Q90 193 170 193 Q252 193 290 182 Q296 174 290 168 Q254 172 170 173 Q86 173 62 168 Q55 174 52 182Z" fill="#111"/>
+          <path d="M62 168 Q86 173 170 173 Q254 173 290 168 L286 153 Q254 159 170 160 Q86 160 66 153Z" fill="#1a1a1a"/>
+          <path d="M66 160 Q86 164 170 164 Q254 164 286 160 L283 148 Q254 153 170 154 Q86 154 69 148Z" fill="#e8e4de"/>
+          <path d="M70 154 Q86 157 170 157 Q254 157 282 154 L278 138 Q250 143 170 144 Q90 144 72 138Z" fill="#f0ece6"/>
+          <!-- Upper white leather -->
+          <path d="M72 148 Q75 118 96 100 Q122 80 170 74 Q218 70 248 84 Q272 96 280 120 Q284 136 282 154 Z" fill="#f5f2ec"/>
+          <!-- Perforations -->
+          <circle cx="90" cy="130" r="2" fill="rgba(0,0,0,0.12)"/>
+          <circle cx="100" cy="122" r="2" fill="rgba(0,0,0,0.12)"/>
+          <circle cx="110" cy="115" r="2" fill="rgba(0,0,0,0.12)"/>
+          <circle cx="96" cy="140" r="2" fill="rgba(0,0,0,0.12)"/>
+          <circle cx="106" cy="132" r="2" fill="rgba(0,0,0,0.12)"/>
+          <circle cx="116" cy="125" r="2" fill="rgba(0,0,0,0.12)"/>
+          <circle cx="122" cy="118" r="2" fill="rgba(0,0,0,0.12)"/>
+          <!-- Swoosh orange -->
+          <path d="M86 142 C114 116 158 110 215 120 C250 128 272 142 280 133 C264 152 208 160 148 148 C115 141 92 144 86 142Z" fill="#FF4500"/>
+          <!-- Heel panel -->
+          <path d="M252 86 Q274 100 280 126 L280 154 L266 154 Q266 132 262 114 Q256 98 245 88Z" fill="#ece8e2"/>
+          <!-- Tongue -->
+          <path d="M152 76 Q170 70 190 74 Q200 77 202 87 L196 124 Q178 117 160 118 L152 76Z" fill="#ece8e2"/>
+          <!-- Laces -->
+          <line x1="155" y1="83" x2="200" y2="86" stroke="#c8c4bc" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="154" y1="93" x2="199" y2="95" stroke="#c8c4bc" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="153" y1="103" x2="198" y2="104" stroke="#c8c4bc" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="152" y1="113" x2="197" y2="113" stroke="#c8c4bc" stroke-width="1.8" stroke-linecap="round"/>
+          <text x="170" y="177" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="7" fill="rgba(0,0,0,0.18)" letter-spacing="3">NIKE</text>
+        </svg>
+      </div>
+      <div class="pinfo">
+        <div class="pname">Air Force 1 '07</div>
+        <div class="pdesc">Le classique intemporel. Cuir premium, semelle Air Nike.</div>
+        <div class="pprice">1 199 MAD</div>
+      </div>
+    </div>
+
+    <!-- Air Max 90 -->
+    <div class="pcard rev d2">
+      <span class="plabel" style="background:#fff;color:#111">Classic</span>
+      <div class="pimgw" style="background:#0c0c18">
+        <svg viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="170" cy="208" rx="132" ry="10" fill="rgba(255,69,0,0.12)"/>
+          <path d="M45 188 Q88 200 170 200 Q255 200 298 188 Q305 179 298 172 Q260 177 170 178 Q80 178 55 172 Q46 179 45 188Z" fill="#151515"/>
+          <!-- Air window -->
+          <rect x="220" y="165" width="62" height="14" rx="4" fill="#080812" stroke="rgba(80,140,255,0.35)" stroke-width="1"/>
+          <ellipse cx="237" cy="172" rx="8" ry="5" fill="none" stroke="rgba(80,140,255,0.5)" stroke-width="1"/>
+          <ellipse cx="256" cy="172" rx="8" ry="5" fill="none" stroke="rgba(80,140,255,0.5)" stroke-width="1"/>
+          <!-- Midsole -->
+          <path d="M55 172 Q80 178 170 178 Q260 178 298 172 L295 158 Q262 164 170 165 Q78 165 58 158Z" fill="#e0dcd4"/>
+          <!-- Upper dark -->
+          <path d="M60 165 Q62 128 86 106 Q116 80 170 74 Q225 68 260 86 Q286 100 294 130 Q298 150 296 165 Z" fill="#18182a"/>
+          <!-- Mesh panels -->
+          <path d="M72 160 Q74 135 88 115 Q106 93 135 82" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="7" stroke-linecap="round"/>
+          <path d="M90 160 Q92 138 105 118" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="7" stroke-linecap="round"/>
+          <!-- Back panel -->
+          <path d="M195 76 Q238 74 268 90 Q290 104 295 132 L293 165 L268 163 Q268 138 262 116 Q252 94 232 82 Z" fill="#121224"/>
+          <!-- Swoosh -->
+          <path d="M80 148 C112 118 162 110 230 120 C268 128 290 144 296 134 C278 155 218 163 155 151 C120 143 86 148 80 148Z" fill="#FF4500"/>
+          <!-- Tongue -->
+          <path d="M152 76 Q170 70 190 74 L186 120 Q170 113 154 114 Z" fill="#161628"/>
+          <!-- Laces -->
+          <line x1="155" y1="83" x2="188" y2="86" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="154" y1="93" x2="187" y2="95" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="153" y1="103" x2="186" y2="104" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="152" y1="113" x2="185" y2="113" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- Heel tab -->
+          <rect x="265" y="108" width="22" height="38" rx="3" fill="#101020"/>
+          <path d="M270 138 C274 130 281 128 287 130 C283 137 274 140 270 138Z" fill="rgba(255,69,0,0.65)"/>
+          <path d="M60 165 Q62 138 80 116 Q100 92 130 80" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+          <text x="170" y="182" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="7" fill="rgba(255,255,255,0.08)" letter-spacing="3">AIR MAX 90</text>
+        </svg>
+      </div>
+      <div class="pinfo">
+        <div class="pname">Air Max 90</div>
+        <div class="pdesc">Amorti légendaire. Style iconique depuis 1990.</div>
+        <div class="pprice">1 450 MAD</div>
+      </div>
+    </div>
+
+    <!-- Jordan 1 -->
+    <div class="pcard rev d3">
+      <span class="plabel">Hot</span>
+      <div class="pimgw" style="background:#0d0a00">
+        <svg viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="170" cy="208" rx="128" ry="10" fill="rgba(255,69,0,0.18)"/>
+          <path d="M50 188 Q90 200 170 200 Q252 200 292 188 Q298 180 292 173 Q256 178 170 179 Q84 179 62 173 Q52 180 50 188Z" fill="#0f0f0f"/>
+          <!-- Midsole white -->
+          <path d="M62 173 Q84 179 170 179 Q256 179 292 173 L288 157 Q256 163 170 164 Q84 164 66 157Z" fill="#dedad2"/>
+          <!-- Upper red -->
+          <path d="M68 164 Q70 124 96 100 Q126 74 170 68 Q216 62 248 78 Q275 92 284 122 Q288 142 286 164 Z" fill="#CC1800"/>
+          <!-- Black toe box -->
+          <path d="M68 164 Q70 134 90 112 Q110 90 140 78 L150 81 Q134 94 122 116 Q110 138 108 164Z" fill="#111"/>
+          <!-- Black top panel -->
+          <path d="M150 81 Q170 68 198 70 Q220 72 234 80 L228 96 Q212 86 190 84 Q168 83 152 92 Z" fill="#111"/>
+          <!-- Back red panel -->
+          <path d="M234 80 Q260 96 275 120 Q282 138 282 164 L265 164 Q265 144 260 126 Q252 108 238 96Z" fill="#CC1800"/>
+          <!-- Wings badge white outline -->
+          <path d="M94 140 C128 118 178 114 232 124 C258 130 275 142 282 134 C265 154 210 162 152 150 C118 142 98 144 94 140Z" fill="white"/>
+          <!-- Wings fill red (giving the Wings logo look) -->
+          <path d="M96 140 C130 120 178 116 230 125 C254 130 270 140 278 134 C262 152 208 159 153 148 C122 142 100 142 96 140Z" fill="#CC1800"/>
+          <!-- Wing feather lines -->
+          <line x1="130" y1="136" x2="136" y2="124" stroke="white" stroke-width="1" opacity="0.5"/>
+          <line x1="144" y1="133" x2="149" y2="120" stroke="white" stroke-width="1" opacity="0.5"/>
+          <line x1="158" y1="131" x2="162" y2="118" stroke="white" stroke-width="1" opacity="0.5"/>
+          <line x1="172" y1="129" x2="175" y2="117" stroke="white" stroke-width="1" opacity="0.5"/>
+          <!-- Tongue black -->
+          <path d="M152 70 Q170 64 190 68 L185 118 Q170 112 155 113 Z" fill="#111"/>
+          <!-- Laces white -->
+          <line x1="157" y1="77" x2="188" y2="80" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="156" y1="87" x2="187" y2="89" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="155" y1="97" x2="186" y2="98" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="154" y1="107" x2="185" y2="107" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="154" y1="116" x2="185" y2="116" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- White collar stripe -->
+          <path d="M240 82 Q265 98 276 122 L265 126 Q256 104 242 92Z" fill="rgba(255,255,255,0.18)"/>
+          <path d="M68 164 Q70 140 88 118 Q108 94 134 80" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+          <text x="170" y="183" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="7" fill="rgba(255,255,255,0.08)" letter-spacing="3">JORDAN 1</text>
+        </svg>
+      </div>
+      <div class="pinfo">
+        <div class="pname">Jordan 1 Retro High OG</div>
+        <div class="pdesc">Culture. Histoire. Prestige. Le graal absolu.</div>
+        <div class="pprice">1 850 MAD</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="features">
+  <div class="fbgtext">NIKE</div>
+  <div class="fhead rev">
+    <div class="stag" style="display:inline-block">Pourquoi nous choisir</div>
+    <h2 class="stitle" style="margin-top:.5rem">L'expérience<br>Nike Rabat</h2>
+  </div>
+  <div class="fgrid">
+    <div class="fitem rev d1"><div class="fnum">01</div><div class="ftitle">Authenticité 100%</div><p class="ftext">Tous nos produits sont garantis originaux, directement approvisionnés auprès de Nike officiel.</p></div>
+    <div class="fitem rev d2"><div class="fnum">02</div><div class="ftitle">Expert Sneakers</div><p class="ftext">Notre équipe connaît chaque modèle, chaque collab. On vous guide vers le bon choix.</p></div>
+    <div class="fitem rev d3"><div class="fnum">03</div><div class="ftitle">Livraison Maroc</div><p class="ftext">Livraison rapide dans tout le Maroc. Contactez-nous via WhatsApp pour commander.</p></div>
+    <div class="fitem rev d4"><div class="fnum">04</div><div class="ftitle">Échange & Retour</div><p class="ftext">Pas la bonne taille ? Échange simple et rapide en boutique ou en ligne.</p></div>
+  </div>
+</section>
+
+<section id="location">
+  <div class="revL" style="position:relative">
+    <div class="mapframe">
+      <iframe src="https://maps.google.com/maps?q=Agdal,+Rabat,+Maroc&output=embed&z=14" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Nike Store Rabat"></iframe>
+      <div class="maptag"><svg viewBox="0 0 24 24" style="width:11px;height:11px;fill:currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5 14.5 7.62 14.5 9 13.38 11.5 12 11.5z"/></svg>Rabat, Maroc</div>
+    </div>
+  </div>
+  <div class="locinfo revR">
+    <div><div class="stag">Notre boutique</div><h2 class="stitle">Venez nous<br>rendre visite</h2></div>
+    <div class="locaddr"><h3>Nike Store Rabat</h3><p>Avenue Mohammed V<br>Agdal, Rabat 10000<br>Maroc</p></div>
+    <div>
+      <div class="stag" style="margin-bottom:1rem">Horaires d'ouverture</div>
+      <div class="hgrid2">
+        <div class="hitem"><strong>Lun – Ven</strong>9h00 – 21h00</div>
+        <div class="hitem"><strong>Samedi</strong>9h00 – 22h00</div>
+        <div class="hitem"><strong>Dimanche</strong>10h00 – 20h00</div>
+        <div class="hitem"><strong>Jours fériés</strong>11h00 – 19h00</div>
+      </div>
+    </div>
+    <a href="https://wa.me/212600000000" class="bp" style="width:fit-content">Commander par WhatsApp →</a>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="rev">
+    <div class="stag" style="display:inline-block">Réseaux & contact</div>
+    <h2 class="stitle" style="margin-top:.5rem">Restons<br>connectés</h2>
+    <p style="color:var(--gray);font-size:.92rem;margin-top:1.2rem;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.8">Suivez-nous sur nos réseaux, passez commande sur WhatsApp, ou écrivez-nous directement.</p>
+  </div>
+  <div class="srow">
+    <a href="https://instagram.com/nikerabat" target="_blank" class="scard rev d1">
+      <div class="sicon"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162S8.597 18.163 12 18.163s6.162-2.759 6.162-6.162S15.403 5.838 12 5.838zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+      <div class="slabel"><strong>Instagram</strong><span>@nikerabat</span></div>
+    </a>
+    <a href="https://wa.me/212600000000" target="_blank" class="scard rev d2">
+      <div class="sicon"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></div>
+      <div class="slabel"><strong>WhatsApp</strong><span>+212 6 00 00 00 00</span></div>
+    </a>
+    <a href="https://facebook.com/nikerabat" target="_blank" class="scard rev d3">
+      <div class="sicon"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></div>
+      <div class="slabel"><strong>Facebook</strong><span>Nike Rabat Officiel</span></div>
+    </a>
+    <a href="mailto:contact@nikerabat.ma" class="scard rev d4">
+      <div class="sicon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+      <div class="slabel"><strong>Gmail</strong><span>contact@nikerabat.ma</span></div>
+    </a>
+  </div>
+</section>
+
+<footer class="rev">
+  <div class="flogo"><svg viewBox="0 0 305 112"><path d="M34.74 101.68c-9.5 2.5-19.63 1.25-27.63-3.75L0 101.68l152.3-89.08c8-5 18.5-5 26.13-.62l126.57 73.2-207.45-72.95c-3.75-1.25-7.5-1.25-10.62.63-3.75 2.5-5 6.87-3.13 10.62l47.5 74.45-96.56 3.75z"/></svg></div>
+  <p class="fcopy">© 2025 Nike Store Rabat — Tous droits réservés</p>
+  <div class="flinks"><a href="#">Confidentialité</a><a href="#">Conditions</a><a href="#contact">Contact</a></div>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function animRing(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing)})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='5px';cur.style.height='5px';ring.style.width='54px';ring.style.height='54px';ring.style.borderColor='rgba(255,69,0,.8)'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';ring.style.width='38px';ring.style.height='38px';ring.style.borderColor='rgba(255,69,0,.45)'});
+});
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>60));
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.1});
+document.querySelectorAll('.rev,.revL,.revR').forEach(e=>io.observe(e));
+const shoe=document.querySelector('.hshoe');
+window.addEventListener('scroll',()=>{if(shoe)shoe.style.transform=`translateY(${scrollY*.22}px)`});
+</script>
+</body>
+</html>
