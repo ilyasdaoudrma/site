@@ -472,5 +472,185 @@ document.querySelectorAll('.rev,.revL,.revR').forEach(e=>io.observe(e));
 const shoe=document.querySelector('.hshoe');
 window.addEventListener('scroll',()=>{if(shoe)shoe.style.transform=`translateY(${scrollY*.22}px)`});
 </script>
+  <div style="padding: 1.5rem 0;">
+
+<div style="background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; max-width: 640px; margin: 0 auto;">
+
+  <div style="background: #25D366; padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 12px;">
+    <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.551 4.1 1.514 5.831L.057 23.534a.75.75 0 00.943.908l5.878-1.54A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.694 9.694 0 01-4.951-1.356l-.355-.211-3.686.967.983-3.594-.232-.369A9.698 9.698 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+    </div>
+    <div>
+      <p style="color: #fff; font-weight: 500; font-size: 15px; margin: 0; line-height: 1.3;">Reservation Form</p>
+      <p style="color: rgba(255,255,255,0.8); font-size: 12px; margin: 0;">Sends directly to WhatsApp</p>
+    </div>
+    <div style="margin-left: auto; background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 100px;">
+      <span style="color: #fff; font-size: 11px; font-weight: 500;">TEST MODE</span>
+    </div>
+  </div>
+
+  <div style="padding: 1.5rem;">
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+      <div>
+        <label style="font-size: 12px; color: var(--color-text-secondary); display: block; margin-bottom: 5px;">First name</label>
+        <input type="text" id="fname" placeholder="Ilyas" style="width: 100%;">
+      </div>
+      <div>
+        <label style="font-size: 12px; color: var(--color-text-secondary); display: block; margin-bottom: 5px;">Last name</label>
+        <input type="text" id="lname" placeholder="Daoud" style="width: 100%;">
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+      <div>
+        <label style="font-size: 12px; color: var(--color-text-secondary); display: block; margin-bottom: 5px;">Phone number</label>
+        <input type="tel" id="phone" placeholder="+212 6XX XXX XXX" style="width: 100%;">
+      </div>
+      <div>
+        <label style="font-size: 12px; color: var(--color-text-secondary); display: block; margin-bottom: 5px;">Email</label>
+        <input type="email" id="email" placeholder="you@email.com" style="width: 100%;">
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+      <div>
+        <label style="font-size: 12px; color: var(--color-text-secondary); display: block; margin-bottom: 5px;">Check-in date</label>
+        <input type="date" id="checkin" style="width: 100%;">
+      </div>
+      <div>
+        <label style="font-size: 12px; color: var(--color-text-secondary); display: block; margin-bottom: 5px;">Check-out date</label>
+        <input type="date" id="checkout" style="width: 100%;">
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+      <div>
+        <label style="font-size: 12px; color: var(--color-text-secondary); display: block; margin-bottom: 5px;">Number of guests</label>
+        <select id="guests" style="width: 100%;">
+          <option value="">Select...</option>
+          <option>1 guest</option>
+          <option>2 guests</option>
+          <option>3 guests</option>
+          <option>4 guests</option>
+          <option>5+ guests</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size: 12px; color: var(--color-text-secondary); display: block; margin-bottom: 5px;">Room type</label>
+        <select id="room" style="width: 100%;">
+          <option value="">Select...</option>
+          <option>Standard</option>
+          <option>Deluxe</option>
+          <option>Suite</option>
+          <option>Family Room</option>
+          <option>VIP Suite</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 16px;">
+      <label style="font-size: 12px; color: var(--color-text-secondary); display: block; margin-bottom: 5px;">Special requests (optional)</label>
+      <textarea id="notes" placeholder="Early check-in, specific floor, allergies, etc." style="width: 100%; height: 80px; resize: vertical;"></textarea>
+    </div>
+
+    <div id="error-msg" style="display:none; background: var(--color-background-danger); border: 0.5px solid var(--color-border-danger); border-radius: var(--border-radius-md); padding: 10px 14px; margin-bottom: 12px; font-size: 13px; color: var(--color-text-danger);"></div>
+
+    <button id="sendBtn" onclick="sendReservation()" style="width: 100%; padding: 13px; background: #25D366; border: none; border-radius: var(--border-radius-md); color: #fff; font-size: 15px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: opacity .2s;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.551 4.1 1.514 5.831L.057 23.534a.75.75 0 00.943.908l5.878-1.54A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.694 9.694 0 01-4.951-1.356l-.355-.211-3.686.967.983-3.594-.232-.369A9.698 9.698 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+      Send via WhatsApp
+    </button>
+
+  </div>
+</div>
+
+<div id="preview-box" style="display:none; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.25rem 1.5rem; max-width: 640px; margin: 1rem auto 0;">
+  <p style="font-size: 12px; color: var(--color-text-secondary); margin: 0 0 8px; text-transform: uppercase; letter-spacing: .5px;">Message preview</p>
+  <pre id="preview-text" style="font-size: 13px; color: var(--color-text-primary); white-space: pre-wrap; word-break: break-word; margin: 0; font-family: var(--font-mono); line-height: 1.6;"></pre>
+</div>
+
+</div>
+
+<script>
+function getNights(ci, co) {
+  const d = (new Date(co) - new Date(ci)) / 86400000;
+  return d > 0 ? d : 0;
+}
+
+function formatDate(d) {
+  if (!d) return '';
+  const dt = new Date(d + 'T00:00:00');
+  return dt.toLocaleDateString('en-GB', {day:'2-digit', month:'long', year:'numeric'});
+}
+
+function buildMessage(d) {
+  const nights = getNights(d.checkin, d.checkout);
+  return [
+    '━━━━━━━━━━━━━━━━━━━━━',
+    '🏨  NEW RESERVATION REQUEST',
+    '━━━━━━━━━━━━━━━━━━━━━',
+    '',
+    '👤  GUEST INFORMATION',
+    '──────────────────────',
+    '📛  Name       : ' + d.fname + ' ' + d.lname,
+    '📞  Phone      : ' + d.phone,
+    '📧  Email      : ' + d.email,
+    '',
+    '🛏️  STAY DETAILS',
+    '──────────────────────',
+    '📅  Check-in   : ' + formatDate(d.checkin),
+    '📅  Check-out  : ' + formatDate(d.checkout),
+    '🌙  Duration   : ' + nights + (nights === 1 ? ' night' : ' nights'),
+    '👥  Guests     : ' + d.guests,
+    '🏠  Room Type  : ' + d.room,
+    '',
+    d.notes ? '📝  SPECIAL REQUESTS\n──────────────────────\n' + d.notes + '\n' : '',
+    '━━━━━━━━━━━━━━━━━━━━━',
+    '⏰  Sent : ' + new Date().toLocaleString('en-GB'),
+    '━━━━━━━━━━━━━━━━━━━━━'
+  ].filter(l => l !== undefined).join('\n');
+}
+
+function sendReservation() {
+  const d = {
+    fname: document.getElementById('fname').value.trim(),
+    lname: document.getElementById('lname').value.trim(),
+    phone: document.getElementById('phone').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    checkin: document.getElementById('checkin').value,
+    checkout: document.getElementById('checkout').value,
+    guests: document.getElementById('guests').value,
+    room: document.getElementById('room').value,
+    notes: document.getElementById('notes').value.trim()
+  };
+
+  const err = document.getElementById('error-msg');
+  const missing = [];
+  if (!d.fname) missing.push('first name');
+  if (!d.lname) missing.push('last name');
+  if (!d.phone) missing.push('phone number');
+  if (!d.checkin) missing.push('check-in date');
+  if (!d.checkout) missing.push('check-out date');
+  if (!d.guests) missing.push('number of guests');
+  if (!d.room) missing.push('room type');
+  if (d.checkin && d.checkout && getNights(d.checkin, d.checkout) <= 0) missing.push('valid dates (check-out must be after check-in)');
+
+  if (missing.length) {
+    err.style.display = 'block';
+    err.textContent = 'Please fill in: ' + missing.join(', ') + '.';
+    return;
+  }
+  err.style.display = 'none';
+
+  const msg = buildMessage(d);
+  const preview = document.getElementById('preview-box');
+  document.getElementById('preview-text').textContent = msg;
+  preview.style.display = 'block';
+
+  const url = 'https://wa.me/212626012954?text=' + encodeURIComponent(msg);
+  window.open(url, '_blank');
+}
+</script>
+
 </body>
 </html>
